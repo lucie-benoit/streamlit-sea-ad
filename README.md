@@ -57,13 +57,13 @@ Additional references consulted for context and biological background:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/username/project.git
+git clone https://github.com/lucie-benoit/streamlit-sea-ad.git
 ```
 
 2. Navigate to the project folder:
 
 ```bash
-cd project
+cd streamlit-sea-ad
 ```
 
 3. Install dependencies:
