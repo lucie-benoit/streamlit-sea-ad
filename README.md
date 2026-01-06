@@ -17,13 +17,13 @@ The dashboard is designed to **support exploration of the SEA-AD atlas**, facili
 
 ## Deployed App
 
-Access the live dashboard here: [Deployed App URL](#)
+Access the live dashboard here: [Deployed App URL](https://lucie-benoit-streamlit-sea-ad-app-rzo9l1.streamlit.app/)
 
 ---
 
 ## Repository
 
-Source code and project files: [GitHub Repository](#)
+Source code and project files: [GitHub Repository](https://github.com/lucie-benoit/streamlit-sea-ad.git)
 
 ---
 
