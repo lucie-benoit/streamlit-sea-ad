@@ -1,13 +1,13 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
-from streamlit_apexjs import st_apexcharts
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 def gender_donutchart(df):
-    """Generate an ApexCharts donut chart showing gender distribution of SEA-AD donors"""
+    """Generate a Plotly donut chart showing gender distribution of SEA-AD donors"""
 
     if df is None:
         st.error("df is None in gender_donutchart")
@@ -18,35 +18,28 @@ def gender_donutchart(df):
         st.write("Available columns:", df.columns.tolist())
         return
 
-    gender_counts = df["Sex"].value_counts()
+    gender_counts = df["Sex"].value_counts().reset_index()
+    gender_counts.columns = ["Sex", "count"]
 
-    labels = gender_counts.index.tolist()
-    series = gender_counts.values.tolist()
-
-    options = {
-        "chart": {
-            "toolbar": {"show": False}
-        },
-        "labels": labels,
-        "legend": {
-            "show": True,
-            "position": "bottom"
-        },
-        "plotOptions": {
-            "pie": {
-                "donut": {
-                    "size": "40%"  
-                }
-            }
-        },
-    }
-
-    st_apexcharts(
-        options,
-        series,
-        "donut",
-        "300",
+    fig = px.pie(
+        gender_counts,
+        names="Sex",
+        values="count",
+        hole=0.4,
     )
+
+    fig.update_traces(
+        textposition="inside",
+        textinfo="percent+label"
+    )
+
+    fig.update_layout(
+        showlegend=True,
+        legend=dict(orientation="h", y=-0.1),
+        margin=dict(l=10, r=10, t=10, b=10),
+    )
+
+    st.plotly_chart(fig, width='stretch')
 
 
 def age_barchart(df):
