@@ -68,7 +68,7 @@ def age_barchart(df):
         .properties(height=300)
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 def apoe_genotype(df):
     """Distribution of APOE genotypes in the SEA-AD cohort"""
@@ -96,7 +96,8 @@ def apoe_genotype(df):
         height=300
     )
 
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
+
 
 
 def cognitive_status(df):
@@ -141,7 +142,7 @@ def adnc_distribution(df):
         ]
     ).properties(height=300)
 
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 def apoe4_by_adnc(df):
     df = df.copy()
@@ -169,7 +170,7 @@ def apoe4_by_adnc(df):
         )
     ).properties(height=300)
 
-    st.altair_chart(chart, width="stretch")
+    st.altair_chart(chart, use_container_width=True)
 
 def dementia_by_adnc(df):
     df = df.copy()
@@ -199,7 +200,7 @@ def dementia_by_adnc(df):
         )
     ).properties(height=300)
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 def at8_by_dementia_barplot(df):
 
@@ -244,7 +245,7 @@ def at8_by_dementia_barplot(df):
         .properties(height=350)
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 HEIGHT = 350
  
@@ -298,7 +299,7 @@ def at8_scatter_by_dementia(df):
         height=HEIGHT
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 
 def at8_vs_adnc(df):
@@ -343,7 +344,7 @@ def at8_vs_adnc(df):
 
     chart = (points + median).properties(height=HEIGHT)
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 def abeta_vs_adnc(df, abeta_col="percent 6e10 positive area_Grey matter"):
     required = {"Donor ID", "Overall AD neuropathological Change", abeta_col}
@@ -389,7 +390,7 @@ def abeta_vs_adnc(df, abeta_col="percent 6e10 positive area_Grey matter"):
     )
 
     chart = (points + mean_rule).properties(height=350)
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 
 
@@ -483,7 +484,7 @@ def neun_vs_adnc(df):
         )
     ).properties(height=350)
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 def neun_vs_at8(df):
     chart = alt.Chart(df).mark_circle(size=70, opacity=0.7).encode(
