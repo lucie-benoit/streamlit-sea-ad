@@ -513,4 +513,5 @@ def neun_vs_at8(df):
         "number of NeuN positive cells per area_Grey matter"
     ).mark_line(color="black")
 
-    st.altair_chart((chart + loess).properties(height=350), width='stretch')
+    st.altair_chart((chart + loess).properties(height=350), use_container_width=True)
+
