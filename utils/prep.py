@@ -6,15 +6,26 @@ import streamlit as st
 
 def clean_data(df):
     """Clean the Fresh Brain Weight clolumn to convert it into numerical"""
+    
     if "Fresh Brain Weight" in df.columns:
         # Replace "Unavailable" by NaN
         df["Fresh Brain Weight"] = pd.to_numeric(df["Fresh Brain Weight"], errors='coerce')
     return df 
 
 def filtered(df_pathology):
-    import pandas as pd
-    import streamlit as st
+    """
+    Merge MTG pathology measurements with donor metadata and create derived variables.
 
+    Returns
+    -------
+    pd.DataFrame
+        Merged dataframe containing:
+        - pathology markers (numeric)
+        - Cognitive Status
+        - ADNC (renamed from 'Overall AD neuropathological Change')
+        - Dementia_status (categorical)
+    """
+    
     # ================= Load metadata =================
     df_meta = pd.read_excel("data/donor_metadata.xlsx")
 

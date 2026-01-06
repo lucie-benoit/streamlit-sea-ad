@@ -3,6 +3,20 @@ from utils.io import load_data
 from utils.visualizations import age_barchart, gender_donutchart, apoe_genotype, cognitive_status, adnc_distribution, apoe4_by_adnc, dementia_by_adnc
 
 def app(df):
+    """
+    Dashboard overview of the SEA-AD donor cohort.
+
+    This section presents:
+    - donor demographics (age, sex),
+    - genetic risk factors (APOE genotype),
+    - clinical outcomes (dementia),
+    - and neuropathological staging (ADNC).
+
+    The goal is to provide a high-level, interpretable overview
+    linking genetics, pathology, and clinical status.
+    """
+
+    # ================= Page title and project context =================
     st.title("SEA-AD donor cohort overview")
 
     st.info("""
@@ -10,6 +24,8 @@ def app(df):
         Given the short timeframe, we prioritize variables that are widely used, consistently available, and easy to interpret, while leaving out variables that are sparse, redundant, or beyond the scope of this exploratory analysis.
 
     """)
+
+    # ================= Donor demographics =================
     st.header("Who are the donors ?")
 
     # Explore basic informations about the donor, gender and age 
@@ -17,7 +33,7 @@ def app(df):
             Donors span a wide age range from 65 to 102 years at death, reflecting advanced aging and enabling the study of late-life neurodegenerative processes across a broad elderly population.""")
 
 
-    # create a container 
+    # Display gender and age distributions side by side
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Gender distribution")
@@ -31,7 +47,7 @@ def app(df):
                 the next step is to examine how genetic variation, particularly APOE alleles, 
                 contributes to individual risk for Alzheimer’s disease.""")
 
-    # ================= APOE Genotype part ====================================
+    # ================= Genetic risk factors (APOE) =================
     st.header("Genetic risk factors")
     # Explore precise informations related to Alzheimer disease such as APOE
     st.info(""" 
@@ -51,7 +67,6 @@ def app(df):
         
     """)
 
-
     apoe_genotype(df)
 
     st.markdown("""
@@ -62,7 +77,9 @@ def app(df):
     we next examine the **cognitive status** of donors, which captures the clinical
     expression of cognitive impairment and dementia.
     """)
-    # ================= Cognitive status part ====================================
+
+
+     # ================= Clinical dementia status =================
     st.header("Clinical dementia status")
     # Explore precise informations related to Alzheimer disease such as cognitive status
     st.info("""
@@ -98,7 +115,8 @@ def app(df):
     st.markdown("""While cognitive status captures the observable effects of neurodegeneration, 
                 examining the brain itself reveals the pathological changes—amyloid plaques and tau tangles—that 
                 underlie these clinical outcomes.""")
-    # ================= Alzheimer's Disease Neuropathologic Change part ====================================
+    
+    # ================= Neuropathological burden =================
     st.header("Neuropathological burden")
     # Explore precise informations related to Alzheimer disease such as ADNC
     st.info("""
@@ -133,6 +151,7 @@ def app(df):
     of APOE ε4 as a major genetic risk factor for Alzheimer’s disease.
     """)
 
+    # ================= Final take-home message =================
     st.success(
         """
         **Take-home message**

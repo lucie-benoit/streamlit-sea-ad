@@ -1,3 +1,9 @@
+"""
+Main Streamlit application.
+
+This app provides an interactive exploration of the SEA-AD Alzheimer’s disease dataset,
+including donor demographics and brain pathology measurements.
+"""
 import streamlit as st
 import pandas as pd
 from utils.io import load_data, load_csv

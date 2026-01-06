@@ -6,13 +6,24 @@ from utils.visualizations import at8_scatter_by_dementia,  at8_vs_adnc, abeta_vs
 
 
 def app(df) :
+    """
+    Brain pathology page (MTG).
 
+    This page focuses on quantitative neuropathology measurements in the
+    middle temporal gyrus (MTG), including core AD markers (Aβ, pTau)
+    and cellular integrity (NeuN).
+    """
+
+    # ================= Data loading and preprocessing =================
+    # We load the pathology table and merge it with donor-level metadata
+    # to obtain clinical and staging variables (e.g., ADNC, dementia status).
+    
     df = load_csv()
     df_filtered = filtered(df)
 
     st.title("Brain pathology in Alzheimer’s disease (MTG)")
 
-    # ================= Context: brain region =================
+    # ================= Page title and scientific context =================
     st.info(
         """ 
         The middle temporal gyrus (MTG) is a brain region involved in language and memory and is known to be particularly vulnerable in Alzheimer’s disease.
@@ -21,7 +32,7 @@ def app(df) :
     )
 
 
-    # ================= What is measured =================
+    # ================= Overview of measured features =================
     st.header("Neuropathological features measured in the MTG")
     st.info("""
         Measurements of Abeta, pTau, pTDP43, a-synuclein, Neun+ cells, IBA1+ cells, and GFAP+ cells from quantitative analysis of stained neuropathology images from Middle Temporal Gyrus (MTG).
@@ -41,6 +52,7 @@ def app(df) :
     neuronal loss, and glial activation.
     """)
 
+    # ================= pTau (AT8) vs dementia and ADNC =================
     st.subheader("Phosphorylated tau vs dementia status")
 
     st.markdown(
@@ -61,6 +73,7 @@ def app(df) :
         shown according to dementia status.
         """)
     
+    # Side-by-side plots: AT8 by dementia and AT8 by ADNC
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("AT8 by dementia")
@@ -80,6 +93,7 @@ def app(df) :
         """
     )
     
+    # ================= Aβ plaque burden (6E10) across ADNC =================
     st.subheader("Aβ plaque burden (6E10) across ADNC stages")
     st.info(
         """ **Amyloid-β (Aβ) pathology** was quantified using **6E10 immunostaining**, a widely used marker of Aβ plaques in Alzheimer’s disease. 
@@ -93,22 +107,20 @@ def app(df) :
         Consistent with Figure 2c of the original study, core Alzheimer’s disease pathologies (pTau and Aβ) cluster together, while pTDP-43 and α-synuclein show weaker and more heterogeneous associations, reflecting their role as frequent but non-systematic comorbid pathologies.
         """
     )
+
+    # ================= Correlation heatmap (Spearman) =================
     st.subheader("Correlation heatmap of pathology markers (Spearman)")
     st.markdown("""
-    This correlation matrix highlights the relationships among key neuropathological
-    features measured in the middle temporal gyrus.
-    Strong positive correlations are observed between core Alzheimer’s disease
-    pathologies—phosphorylated tau (pTau) and amyloid-β (Aβ)—consistent with their
-    co-accumulation during disease progression. In contrast, pTDP-43 and α-synuclein exhibit weaker
-    and more variable associations with other markers, reflecting their status as
-    common but non-obligate comorbid pathologies in Alzheimer’s disease.
-    These findings align with prior observations from the SEA-AD study,
-    underscoring the complex interplay of neuropathological processes in Alzheimer’s disease.
+        This correlation matrix highlights the relationships among key neuropathological features measured in the middle temporal gyrus.
+        Strong positive correlations are observed between core Alzheimer’s disease pathologies—phosphorylated tau (pTau) and amyloid-β (Aβ)—consistent with their
+        co-accumulation during disease progression. In contrast, pTDP-43 and α-synuclein exhibit weaker and more variable associations with other markers, reflecting their status as
+        common but non-obligate comorbid pathologies in Alzheimer’s disease. These findings align with prior observations from the SEA-AD study,
+        underscoring the complex interplay of neuropathological processes in Alzheimer’s disease.
     """)
     correlation_heatmap_pathology(df_filtered)
 
     
-    # ================= Neun vs ADNC and AT8 ====================================
+    # ================= NeuN integrity vs ADNC and AT8 =================
     st.subheader("Neuronal integrity across ADNC and pTau burden")
     st.info(
         """NeuN immunoreactivity provides an estimate of neuronal integrity, 
@@ -133,8 +145,9 @@ def app(df) :
                 consistent with the anti-correlation between neuronal integrity and Alzheimer’s disease protein pathologies reported in the SEA-AD study.
                 """)
 
-    # ================= Pathology distribution across disease severity =================
+    # ================= Final summary =================
     st.header("Pathology distribution across disease severity")
+    
     st.success("""
     These neuropathological features were analyzed across donors spanning the full spectrum
     of Alzheimer’s disease severity.
